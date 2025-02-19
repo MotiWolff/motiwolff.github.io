@@ -217,9 +217,10 @@
                     <div class="project-item">
                         <h3>Havlin Family Website</h3>
                         <div class="video-container">
-                            <video autoplay loop muted playsinline>
+                            <video autoplay loop muted playsinline poster="havlin-poster.png">
                                 <source src="havlin-demo.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
+                                <source src="havlin-demo.webm" type="video/webm">
+                                <img src="havlin-poster.png" alt="Havlin Family Website Preview">
                             </video>
                         </div>
                         <p class="project-description">
@@ -312,14 +313,6 @@
         </main>
     </div>
     <script>
-        const scrollProgress = document.querySelector('.scroll-progress');
-        
-        window.addEventListener('scroll', () => {
-            const scrollPer = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            const scrollPosition = Math.min(Math.max(scrollPer, 0), 70); // Limit to 70% of container height
-            scrollProgress.style.top = `${scrollPosition}%`;
-        });
-
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.section');
             const navLinks = document.querySelectorAll('nav a');
