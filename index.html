@@ -222,18 +222,25 @@
                                 loop 
                                 muted 
                                 playsinline 
-                                poster="havlin-poster.jpg"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                                poster="havlin-poster.png"
+                                style="width: 100%; height: auto;"
                             >
                                 <source src="havlin-demo.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                            <img 
-                                src="havlin-poster.jpg" 
-                                alt="Havlin Family Website Preview" 
-                                style="display: none;"
-                            >
+                            <p id="videoError" style="display: none; color: red;"></p>
                         </div>
+                        <script>
+                            const video = document.querySelector('video');
+                            video.onerror = function() {
+                                console.log('Video error:', video.error);
+                                document.getElementById('videoError').style.display = 'block';
+                                document.getElementById('videoError').textContent = 'Error loading video: ' + video.error.message;
+                            };
+                            video.onloadeddata = function() {
+                                console.log('Video loaded successfully');
+                            };
+                        </script>
                         <p class="project-description">
                             Developed a heritage-focused web application showcasing the Havlin family's Jewish legacy and Chabad activities using HTML, JavaScript and Netlify implementation for a modern, responsive design. The site features a dark theme with gold accents, implementing both Hebrew and English language support.
                         </p>
