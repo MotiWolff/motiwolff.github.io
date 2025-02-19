@@ -751,12 +751,14 @@ body {
     margin: 2rem auto;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    background: var(--bg-secondary);
 }
 
-.video-container video {
-    max-height: 200px;
+.video-container video,
+.video-container img {
     width: 100%;
+    height: auto;
+    max-height: 200px;
     object-fit: cover;
     border-radius: 5px;
 }
