@@ -6,13 +6,12 @@
 }
 
 :root {
-    /* Bold, Contemporary Color Palette */
+    /* Improved contrast ratios */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.87);
+    --accent-primary: #00d084; /* Adjusted for better contrast */
     --bg-primary: #0a0a0a;
     --bg-secondary: #141414;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.9);
-    --accent-primary: #00cc7a;
-    --accent-secondary: #00d1ff;
     --border-color: rgba(255, 255, 255, 0.1);
     --gradient-1: linear-gradient(135deg, #00ff95 0%, #00d1ff 100%);
     --font-mono: 'JetBrains Mono', monospace;
@@ -59,7 +58,7 @@ body {
 }
 
 .nav-links a {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -267,7 +266,7 @@ body {
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
@@ -513,8 +512,10 @@ body {
     border-radius: 4px;
 }
 
+/* Contact Form Styles */
 .form-group {
     position: relative;
+    margin-bottom: 1.5rem;
 }
 
 .form-group i {
@@ -524,15 +525,32 @@ body {
     left: 1rem;
     color: var(--text-secondary);
     pointer-events: none;
-}
-
-.form-group textarea + i {
-    top: 1.5rem;
+    font-size: 1rem; /* Standardize icon size */
 }
 
 .form-group input,
 .form-group textarea {
-    padding-left: 3rem;
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem; /* Adjust padding to accommodate icon */
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    line-height: 1.5; /* Standardize line height */
+}
+
+/* Special handling for textarea */
+.form-group textarea {
+    padding-left: 1rem; /* Reset left padding for textarea */
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Remove icon from textarea */
+.form-group textarea + i {
+    display: none;
 }
 
 .contact-form input,
