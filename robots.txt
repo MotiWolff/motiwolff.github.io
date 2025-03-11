@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://motiwolff.com/sitemap.xml 

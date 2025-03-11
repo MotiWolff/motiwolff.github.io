@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moti Wolff - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
@@ -15,26 +15,31 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <meta property="og:title" content="Moti Wolff - Portfolio">
     <meta property="og:description" content="Computer Science Student and Web Developer Portfolio">
-    <meta property="og:image" content="path-to-your-preview-image.jpg">
+    <meta property="og:image" content="https://motiwolff.com/og-image.jpg">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://motiwolff.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-41Q6D33M3B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-41Q6D33M3B');
+    </script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-41Q6D33M3B"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-41Q6D33M3B');
-</script>
 <body>
     <div class="container">
         <header class="main-header">
             <nav>
                 <div class="logo">M.Wolff;</div>
+                <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
                 <div class="nav-links">
                     <a href="#home" class="active">Home</a>
                     <a href="#about">About</a>
@@ -43,7 +48,7 @@
                     <a href="#contact">Contact</a>
                 </div>
                 <button class="theme-toggle" aria-label="Toggle dark mode">
-                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-moon" aria-hidden="true"></i>
                 </button>
             </nav>
         </header>
@@ -60,19 +65,19 @@
                             <a href="#projects" class="secondary-button">View Projects</a>
                         </div>
                         <div class="social-links">
-                            <a href="https://github.com/MotiWolff" target="_blank" aria-label="GitHub Profile">
+                            <a href="https://github.com/MotiWolff" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="https://x.com/MotiWolff" target="_blank" aria-label="Twitter Profile">
-                                <i class="fab fa-twitter"></i>
+                            <a href="https://x.com/MotiWolff" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile">
+                                <i class="fab fa-twitter" aria-hidden="true"></i>
                             </a>
-                            <a href="https://linkedin.com/in/mordechay-wolff-13b440180" target="_blank" aria-label="LinkedIn Profile">
-                                <i class="fab fa-linkedin"></i>
+                            <a href="https://linkedin.com/in/mordechay-wolff-13b440180" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                                <i class="fab fa-linkedin" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img src="me.jpg" alt="Moti Wolff - Profile Picture" class="profile-image">
+                        <img src="me.jpg" alt="Moti Wolff - Profile Picture" class="profile-image" loading="lazy" width="400" height="400">
                     </div>
                 </div>
             </section>
@@ -133,8 +138,8 @@
                             <p>Learned the basics of Python and its applications in various fields.</p>
                             <p>Developed a Hangman Game and a Israeli ID number generator using Python.</p>
                             <div class="certificate-links">
-                                <a href="https://courses.campus.gov.il/certificates/6ba894566c174661907293c4c6a0790a" target="_blank">
-                                    <i class="fas fa-certificate"></i>
+                                <a href="https://courses.campus.gov.il/certificates/6ba894566c174661907293c4c6a0790a" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-certificate" aria-hidden="true"></i>
                                     View Certificate 1
                                 </a>
                                 <a href="https://courses.campus.gov.il/certificates/cc354fe6f191431194c89f6787b1ebaa" target="_blank">
@@ -308,16 +313,19 @@
                 
                 <form class="contact-form" id="contactForm" action="https://formspree.io/f/mbljvrvd" method="POST">
                     <div class="form-group">
+                        <label for="fullName" class="visually-hidden">Full Name</label>
                         <input type="text" id="fullName" name="name" placeholder="Full Name" required>
-                        <i class="fas fa-user"></i>
+                        <i class="fas fa-user" aria-hidden="true"></i>
                     </div>
                     
                     <div class="form-group">
+                        <label for="email" class="visually-hidden">Email Address</label>
                         <input type="email" id="email" name="email" placeholder="Email" required>
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
                     </div>
                     
                     <div class="form-group">
+                        <label for="message" class="visually-hidden">Message</label>
                         <textarea id="message" name="message" placeholder="Message" required></textarea>
                     </div>
                     
@@ -333,38 +341,61 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.section');
-            const navLinks = document.querySelectorAll('nav a');
-        
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            // Fix observer options - remove non-existent root element
             const observerOptions = {
-                root: document.querySelector('.left-side'),
-                rootMargin: '-20% 0px',
-                threshold: 0.3
+                root: null, // Use viewport as root
+                rootMargin: '-40% 0px', // Adjust this value to control when sections become active
+                threshold: 0.1 // Lower threshold for better detection
             };
-        
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    // Get the corresponding nav link
+                    const targetId = entry.target.id;
+                    const navLink = document.querySelector(`.nav-links a[href="#${targetId}"]`);
+                    
                     if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        navLinks.forEach(link => {
-                            const href = link.getAttribute('href').substring(1);
-                            if (href === id) {
-                                link.classList.add('active');
-                            } else {
-                                link.classList.remove('active');
-                            }
-                        });
+                        // Remove active class from all links
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        // Add active class to current section's link
+                        if (navLink) navLink.classList.add('active');
                     }
                 });
             }, observerOptions);
-        
+
+            // Observe all sections
             sections.forEach(section => {
                 observer.observe(section);
             });
-            
+
+            // Add smooth scrolling
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                });
+            });
+
             document.getElementById('contactForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const form = e.target;
                 const submitButton = form.querySelector('button[type="submit"]');
+                const formData = new FormData(form);
+                
+                // Validate email
+                const email = formData.get('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
                 
                 try {
                     submitButton.textContent = 'Sending...';
@@ -372,7 +403,7 @@
                     
                     const response = await fetch(form.action, {
                         method: 'POST',
-                        body: new FormData(form),
+                        body: formData,
                         headers: {
                             'Accept': 'application/json'
                         }
@@ -380,12 +411,21 @@
                     
                     if (response.ok) {
                         form.reset();
-                        alert('Message sent successfully!');
+                        // Replace alert with a more user-friendly notification
+                        const notification = document.createElement('div');
+                        notification.className = 'success-message';
+                        notification.textContent = 'Message sent successfully!';
+                        form.appendChild(notification);
+                        setTimeout(() => notification.remove(), 5000);
                     } else {
                         throw new Error('Failed to send message');
                     }
                 } catch (error) {
-                    alert('Error sending message. Please try again.');
+                    const errorMessage = document.createElement('div');
+                    errorMessage.className = 'error-message';
+                    errorMessage.textContent = 'Error sending message. Please try again.';
+                    form.appendChild(errorMessage);
+                    setTimeout(() => errorMessage.remove(), 5000);
                     console.error('Error:', error);
                 } finally {
                     submitButton.textContent = 'Send';
@@ -411,6 +451,15 @@
                 localStorage.setItem('theme', newTheme);
                 icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
             });
+        });
+
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 
+                navLinks.classList.contains('active'));
         });
     </script>
 </body>
