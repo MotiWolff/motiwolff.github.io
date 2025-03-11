@@ -10,8 +10,8 @@
     --bg-primary: #0a0a0a;
     --bg-secondary: #141414;
     --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --accent-primary: #00ff95;
+    --text-secondary: rgba(255, 255, 255, 0.9);
+    --accent-primary: #00cc7a;
     --accent-secondary: #00d1ff;
     --border-color: rgba(255, 255, 255, 0.1);
     --gradient-1: linear-gradient(135deg, #00ff95 0%, #00d1ff 100%);
@@ -515,7 +515,6 @@ body {
 
 .form-group {
     position: relative;
-    margin-bottom: 2rem;
 }
 
 .form-group i {
@@ -524,13 +523,22 @@ body {
     transform: translateY(-50%);
     left: 1rem;
     color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.form-group textarea + i {
+    top: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding-left: 3rem;
 }
 
 .contact-form input,
 .contact-form textarea {
     width: 100%;
     padding: 1rem;
-    padding-left: 3rem;
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     color: var(--text-primary);

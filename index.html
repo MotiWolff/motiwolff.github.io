@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moti Wolff - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <meta name="description" content="Moti Wolff - Computer Science Student and Web Developer Portfolio. View my projects and experience in web development.">
     <meta name="keywords" content="web development, computer science, portfolio, Moti Wolff, developer">
@@ -31,6 +33,7 @@
         gtag('js', new Date());
         gtag('config', 'G-41Q6D33M3B');
     </script>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" as="style">
 </head>
 <body>
     <div class="container">
@@ -77,7 +80,17 @@
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img src="me.jpg" alt="Moti Wolff - Profile Picture" class="profile-image" loading="lazy" width="400" height="400">
+                        <img src="me.jpg" 
+                            alt="Moti Wolff - Profile Picture" 
+                            class="profile-image" 
+                            loading="lazy" 
+                            width="400" 
+                            height="400"
+                            srcset="me-400w.webp 400w,
+                                    me-800w.webp 800w"
+                            sizes="(max-width: 768px) 400px,
+                                   800px"
+                        >
                     </div>
                 </div>
             </section>
