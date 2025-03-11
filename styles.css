@@ -1167,3 +1167,73 @@ body {
     border: 1px solid #ff4444;
 }
 
+/* Fix viewport sizing issues */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Update hero section for mobile */
+@media screen and (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr; /* Stack content vertically */
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .name {
+        font-size: 2.5rem; /* Reduce font size on mobile */
+        white-space: normal; /* Allow text to wrap */
+    }
+
+    .social-links {
+        margin-left: 0; /* Remove left margin on mobile */
+        justify-content: center;
+    }
+}
+
+/* Fix projects grid on mobile */
+@media screen and (max-width: 768px) {
+    .projects-list {
+        grid-template-columns: 1fr; /* Single column on mobile */
+    }
+
+    .project-item {
+        margin: 0 1rem 20px;
+        width: auto;
+    }
+}
+
+/* Fix form on mobile */
+@media screen and (max-width: 768px) {
+    .contact-form {
+        margin: 0 1rem;
+        padding: 1.5rem;
+    }
+}
+
+/* General mobile fixes */
+@media screen and (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .section {
+        padding: 4rem 1rem;
+    }
+
+    .tech-icons {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+
+    .tech-icon {
+        padding: 1rem;
+    }
+
+    .timeline-item {
+        padding-left: 2rem;
+    }
+}
+
