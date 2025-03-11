@@ -343,32 +343,40 @@
             const sections = document.querySelectorAll('.section');
             const navLinks = document.querySelectorAll('.nav-links a');
 
-            // Fix observer options - remove non-existent root element
-            const observerOptions = {
-                root: null, // Use viewport as root
-                rootMargin: '-40% 0px', // Adjust this value to control when sections become active
-                threshold: 0.1 // Lower threshold for better detection
-            };
+            // Function to update active link based on current scroll position
+            function updateActiveLink() {
+                let currentSectionId = '';
+                let minDistance = Infinity;
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // Get the corresponding nav link
-                    const targetId = entry.target.id;
-                    const navLink = document.querySelector(`.nav-links a[href="#${targetId}"]`);
+                // Find the section closest to the viewport's top
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs(rect.top);
                     
-                    if (entry.isIntersecting) {
-                        // Remove active class from all links
-                        navLinks.forEach(link => link.classList.remove('active'));
-                        // Add active class to current section's link
-                        if (navLink) navLink.classList.add('active');
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        currentSectionId = section.id;
                     }
                 });
-            }, observerOptions);
 
-            // Observe all sections
-            sections.forEach(section => {
-                observer.observe(section);
+                // Update active class
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href').substring(1);
+                    if (href === currentSectionId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+
+            // Listen for scroll events
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(updateActiveLink);
             });
+
+            // Initial check
+            updateActiveLink();
 
             // Add smooth scrolling
             navLinks.forEach(link => {
