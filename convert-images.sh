@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install cwebp if not already installed
+# sudo apt-get install webp
+
 # Create directories if they don't exist
 mkdir -p assets/images
 
@@ -13,4 +16,10 @@ done
 cp me.jpg assets/images/me.jpg
 
 # Clean up temporary files
-rm me-*w.jpg 
+rm me-*w.jpg
+
+for img in *.{jpg,jpeg,png}; do
+    if [ -f "$img" ]; then
+        cwebp -q 80 "$img" -o "${img%.*}.webp"
+    fi
+done 

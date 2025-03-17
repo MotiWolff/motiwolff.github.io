@@ -1,9 +1,8 @@
-const CACHE_NAME = 'moti-portfolio-v1';
+const CACHE_NAME = 'site-cache-v1';
 const urlsToCache = [
     '/',
-    '/index.html',
-    '/styles.css',
-    '/assets/images/me.jpg',
+    '/styles.v2.css',
+    '/assets/images/me.webp',
     // Add other important assets
 ];
 

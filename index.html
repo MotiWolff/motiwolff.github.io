@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
     <link rel="preload" href="styles.v2.css" as="style">
-    <link rel="stylesheet" href="styles.v2.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <meta name="description" content="Moti Wolff - Computer Science Student and Web Developer Portfolio. View my projects and experience in web development.">
     <meta name="keywords" content="web development, computer science, portfolio, Moti Wolff, developer">
     <meta name="author" content="Moti Wolff">
@@ -57,6 +57,12 @@
             --border-color: rgba(226, 232, 240, 0.1);
         }
     </style>
+    <link rel="stylesheet" href="styles.v2.css?v=202401211200">
+    <link rel="preload" 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'"
+    >
 </head>
 <body>
     <div class="container">
@@ -104,12 +110,13 @@
                     </div>
                     <div class="hero-image">
                         <img 
-                            src="assets/images/me.JPG" 
+                            src="assets/images/me.webp" 
                             alt="Moti Wolff - Profile Picture" 
                             class="profile-image" 
-                            loading="lazy" 
                             width="400" 
                             height="400"
+                            loading="lazy"
+                            decoding="async"
                         >
                     </div>
                 </div>
@@ -299,7 +306,14 @@
                     <div class="project-item">
                         <h3>This Website</h3>
                         <div class="project-image">
-                            <img src="assets/images/this-website.png" alt="Portfolio Website Screenshot" loading="lazy">
+                            <img 
+                                src="assets/images/this-website.png"
+                                alt="Portfolio Website Screenshot"
+                                width="800"
+                                height="450"
+                                loading="lazy"
+                                decoding="async"
+                            >
                         </div>
                         <p class="project-description">
                             Built a modern, responsive portfolio website using vanilla HTML, CSS, and JavaScript. 
@@ -319,7 +333,14 @@
                     <div class="project-item">
                         <h3>Pregnancy Tracker</h3>
                         <div class="project-image">
-                            <img src="assets/images/pregnancy.jpeg" alt="Pregnancy Tracker App Screenshot" loading="lazy">
+                            <img 
+                                src="assets/images/pregnancy.jpeg"
+                                alt="Pregnancy Tracker App Screenshot"
+                                width="800"
+                                height="450"
+                                loading="lazy"
+                                decoding="async"
+                            >
                         </div>
                         <p class="project-description">
                             Created a pregnancy journey tracker using Flask, SQL for backend and HTML, CSS, and JavaScript for the frontend.
@@ -374,6 +395,7 @@
             </section>
         </main>
     </div>
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('.section');
@@ -508,15 +530,15 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registration successful');
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker registration failed: ', err);
-                    });
+                navigator.serviceWorker.register('/service-worker.js');
             });
         }
+    </script>
+    <script>
+        // Set theme immediately
+        (function() {
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        })();
     </script>
 </body>
 </html>
