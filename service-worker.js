@@ -2,7 +2,7 @@ const CACHE_NAME = 'site-cache-v1';
 const urlsToCache = [
     '/',
     '/styles.v2.css',
-    '/assets/images/me.webp',
+    '/assets/images/me.JPG',
     // Add other important assets
 ];
 
