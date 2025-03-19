@@ -1120,16 +1120,18 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background-color: #00ff95;  /* Green to match your theme */
-    color: white;
+    background-color: var(--accent-primary); /* Using the indigo accent color */
+    color: var(--bg-primary); /* Light background color for text */
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .home-btn:hover {
-    background-color: white;  /* Darker green on hover */
-    color: #00ff95;
+    background-color: transparent;
+    color: var(--accent-primary);
+    transform: translateY(-2px); /* Subtle lift effect */
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15); /* Soft shadow using indigo */
 }
 
 .home-btn i {
