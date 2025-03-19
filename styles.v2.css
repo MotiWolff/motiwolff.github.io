@@ -41,9 +41,9 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    height: 80px; /* Explicit height */
     z-index: 1000;
-    background: rgba(10, 10, 10, 0.8);
-    backdrop-filter: blur(10px);
+    background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -1202,6 +1202,10 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     overflow-x: hidden; /* Prevent horizontal scroll */
+    padding-top: 80px; /* Same as header height */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Update hero section for mobile */
@@ -1465,5 +1469,93 @@ body {
     .timeline-item .company {
         font-size: 1rem;
     }
+}
+
+/* 404 Error Page Styles */
+.error-page {
+    min-height: calc(100vh - 80px); /* Subtract header height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px; /* Add margin for header */
+    background: var(--bg-primary);
+}
+
+.error-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-title {
+    font-size: 8rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin: 0;
+    line-height: 1;
+}
+
+.glitch-text {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin: 1rem 0;
+    font-weight: 500;
+}
+
+.error-description {
+    color: var(--text-secondary);
+    margin: 2rem 0;
+    font-size: 1.2rem;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Ensure header stays on top */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 1000;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .error-title {
+        font-size: 6rem;
+    }
+
+    .glitch-text {
+        font-size: 1.5rem;
+    }
+
+    .error-description {
+        font-size: 1rem;
+    }
+}
+
+/* Ensure the body and html take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
