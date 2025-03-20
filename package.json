@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build:css": "postcss src/styles/styles.v2.css -o public/styles/styles.min.css",
+    "build": "npm run build:css && bash scripts/build.sh",
+    "purge:css": "purgecss --config purgecss.config.js"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "cssnano": "^6.0.1",
+    "autoprefixer": "^10.4.16"
+  }
+} 
