@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
         '/',
         '/index.html',
         '/styles.v2.css',
-        '/assets/images/me.JPG',
+        '/assets/images/me.webp',
         // Add other critical resources
       ]).catch(error => {
         console.error('Cache addAll error:', error);
