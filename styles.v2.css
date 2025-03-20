@@ -8,7 +8,7 @@
 :root {
     /* Light, modern color palette */
     --text-primary: #1A2B3B;  /* Deep blue-grey for text */
-    --text-secondary: rgba(26, 43, 59, 0.75); /* Muted text */
+    --text-secondary: rgba(226, 232, 240, 0.85); /* Muted text */
     --accent-primary: #4F46E5; /* Soft indigo */
     --bg-primary: #FAFAFA; /* Very light grey, almost white */
     --bg-secondary: #F3F4F6; /* Light grey for cards/sections */
@@ -1559,5 +1559,11 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+/* Add focus styles */
+a:focus, button:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
 }
 

@@ -62,6 +62,11 @@
         as="style"
         onload="this.onload=null;this.rel='stylesheet'"
     >
+    <!-- Defer non-critical CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" as="font" href="path-to-your-critical-font.woff2" type="font/woff2" crossorigin>
 </head>
 <body>
     <div class="container">
@@ -111,11 +116,15 @@
                     <div class="hero-image">
                         <img 
                             src="/assets/images/me.webp" 
+                            srcset="/assets/images/me-400w.webp 400w,
+                                    /assets/images/me-800w.webp 800w"
+                            sizes="(max-width: 768px) 400px,
+                                   800px"
                             alt="Moti Wolff - Profile Picture" 
                             class="profile-image" 
                             width="400" 
                             height="400" 
-                            fetchpriority="high" 
+                            loading="lazy" 
                             decoding="async"
                         >
                     </div>
@@ -551,11 +560,17 @@
 
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links a');
 
         mobileMenuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 
-                navLinks.classList.contains('active'));
+        });
+
+        // Close menu when clicking links
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
         });
 
         if ('serviceWorker' in navigator) {
