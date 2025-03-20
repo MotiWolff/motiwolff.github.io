@@ -116,7 +116,7 @@
                     </div>
                     <div class="hero-image">
                         <img 
-                            src="assets/images/me.webp" 
+                            src="assets/images/me.webp"
                             alt="Moti Wolff - Profile Picture" 
                             class="profile-image" 
                             width="400" 
@@ -346,6 +346,7 @@
                                 height="450"
                                 loading="lazy"
                                 decoding="async"
+                                onerror="this.onerror=null; console.error('Failed to load image:', this.src);"
                             >
                         </div>
                         <p class="project-description">
@@ -581,6 +582,24 @@
         (function() {
             document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
         })();
+    </script>
+    <script>
+        // Add this to your existing scripts
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                console.error('Image loading error:', e.target.src);
+                // Optionally retry loading with a different protocol
+                if (e.target.src.startsWith('https://')) {
+                    e.target.src = e.target.src.replace('https://', 'http://');
+                }
+            }
+        }, true);
+    </script>
+    <script>
+        document.querySelector('.profile-image').onerror = function() {
+            this.onerror = null;
+            this.src = 'assets/images/me.JPG';  // Note the uppercase JPG to match your file
+        };
     </script>
 </body>
 </html>
