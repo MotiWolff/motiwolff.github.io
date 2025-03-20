@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'"
+    >
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" 
+              rel="stylesheet">
+    </noscript>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -57,16 +66,8 @@
         }
     </style>
     <link rel="stylesheet" href="styles.v2.css?v=202401211345">
-    <link rel="preload" 
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
-        as="style"
-        onload="this.onload=null;this.rel='stylesheet'"
-    >
     <!-- Defer non-critical CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
-
-    <!-- Preload critical fonts -->
-    <link rel="preload" as="font" href="path-to-your-critical-font.woff2" type="font/woff2" crossorigin>
 </head>
 <body>
     <div class="container">
@@ -116,10 +117,6 @@
                     <div class="hero-image">
                         <img 
                             src="/assets/images/me.webp" 
-                            srcset="/assets/images/me-400w.webp 400w,
-                                    /assets/images/me-800w.webp 800w"
-                            sizes="(max-width: 768px) 400px,
-                                   800px"
                             alt="Moti Wolff - Profile Picture" 
                             class="profile-image" 
                             width="400" 
@@ -307,7 +304,7 @@
                                 style="width: 100%; height: auto;"
                             >
                                 <source src="assets/havlin-demo.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
+                                <img src="assets/images/havlin-poster.png" alt="Havlin Family Website Preview">
                             </video>
                             <p id="videoError" style="display: none; color: red;"></p>
                         </div>

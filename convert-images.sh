@@ -8,9 +8,12 @@ mkdir -p assets/images
 
 # Convert main image to WebP versions
 for size in 400 800; do
-    convert me.jpg -resize ${size}x me-${size}w.jpg
+    convert me.jpg -resize ${size}x${size} me-${size}w.jpg
     cwebp -q 80 me-${size}w.jpg -o assets/images/me-${size}w.webp
 done
+
+# Create the main webp image
+cwebp -q 80 me.jpg -o assets/images/me.webp
 
 # Move original image
 cp me.jpg assets/images/me.jpg
