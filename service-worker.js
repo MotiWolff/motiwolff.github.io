@@ -6,7 +6,10 @@ self.addEventListener('install', (event) => {
       return cache.addAll([
         '/',
         '/index.html',
-        '/styles.v2.css'
+        '/styles.v2.css',
+        '/assets/images/me.webp',
+        '/assets/images/havlin-poster.webp',
+        '/assets/havlin-demo-compressed.mp4'
       ]).catch(error => {
         console.error('Cache addAll error:', error);
         // Continue with installation even if caching fails
@@ -19,19 +22,14 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
+      .then(response => response || fetch(event.request))
+      .catch(() => {
+        if (event.request.mode === 'navigate') {
+          return caches.match('/404.html');
         }
-        return fetch(event.request).catch(() => {
-          // Return fallback content or handle error
-          if (event.request.mode === 'navigate') {
-            return caches.match('/404.html');
-          }
-          return new Response('Network error happened', {
-            status: 408,
-            headers: { 'Content-Type': 'text/plain' }
-          });
+        return new Response('Network error happened', {
+          status: 408,
+          headers: { 'Content-Type': 'text/plain' }
         });
       })
   );
