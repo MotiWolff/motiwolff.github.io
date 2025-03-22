@@ -26,31 +26,20 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Return cached response if available
         if (response) {
           return response;
         }
         
-        // For WebP files that fail, try JPG version
-        if (event.request.url.endsWith('.webp')) {
-          const jpgUrl = event.request.url.replace('.webp', '.JPG');
-          return caches.match(new Request(jpgUrl))
-            .then(jpgResponse => {
-              return jpgResponse || fetch(event.request);
-            });
-        }
-        
-        // For compressed videos that fail, try non-compressed version
-        if (event.request.url.includes('-compressed.mp4')) {
-          const regularUrl = event.request.url.replace('-compressed', '');
-          return caches.match(new Request(regularUrl))
-            .then(regularResponse => {
-              return regularResponse || fetch(event.request);
-            });
-        }
-        
-        // Otherwise fetch the resource
-        return fetch(event.request);
+        return fetch(event.request).catch(() => {
+          // Return fallback images/videos for failed requests
+          if (event.request.url.endsWith('me.webp')) {
+            return caches.match('/assets/images/me.JPG');
+          }
+          if (event.request.url.includes('-compressed.mp4')) {
+            return caches.match(event.request.url.replace('-compressed', ''));
+          }
+          return caches.match('/assets/images/placeholder.png');
+        });
       })
       .catch(() => {
         if (event.request.mode === 'navigate') {

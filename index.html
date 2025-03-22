@@ -304,7 +304,6 @@
                                 poster="assets/images/havlin-poster.webp"
                                 style="width: 100%; height: auto;"
                             >
-                                <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
                                 <source src="assets/havlin-demo.mp4" type="video/mp4">
                                 <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
                             </video>
@@ -313,29 +312,31 @@
                     
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                const video = document.currentScript.previousElementSibling.querySelector('video');
-                                // Force load the video
-                                video.load();
-                                
-                                video.onerror = function() {
-                                    console.log('Video error:', this.error);
-                                    const errorElement = this.parentNode.querySelector('#videoError');
-                                    if (errorElement) {
-                                        errorElement.style.display = 'block';
-                                        errorElement.textContent = 'Error loading video: ' + (this.error ? this.error.message : 'unknown error');
-                                    }
-                                };
-                                
-                                video.onloadeddata = function() {
-                                    console.log('Video loaded successfully');
-                                };
-                                
-                                // Event listener for when the video can play
-                                video.addEventListener('canplaythrough', function() {
-                                    console.log('Video can play through');
-                                    // Try playing the video
-                                    this.play().catch(e => console.log('Autoplay prevented:', e));
-                                });
+                                const element = document.querySelector('video');
+                                if (element && element.previousElementSibling) {
+                                    // Force load the video
+                                    element.load();
+                                    
+                                    element.onerror = function() {
+                                        console.log('Video error:', this.error);
+                                        const errorElement = this.parentNode.querySelector('#videoError');
+                                        if (errorElement) {
+                                            errorElement.style.display = 'block';
+                                            errorElement.textContent = 'Error loading video: ' + (this.error ? this.error.message : 'unknown error');
+                                        }
+                                    };
+                                    
+                                    element.onloadeddata = function() {
+                                        console.log('Video loaded successfully');
+                                    };
+                                    
+                                    // Event listener for when the video can play
+                                    element.addEventListener('canplaythrough', function() {
+                                        console.log('Video can play through');
+                                        // Try playing the video
+                                        this.play().catch(e => console.log('Autoplay prevented:', e));
+                                    });
+                                }
                             });
                         </script>
                     
@@ -556,66 +557,55 @@
             const profileImage = document.querySelector('.profile-image');
             if (profileImage) {
                 profileImage.onerror = function() {
-                    console.log('Profile image failed to load, trying fallback:', this.src);
+                    if (this.src.endsWith('me.webp')) {
+                        console.log('WebP failed, trying JPG fallback');
+                        this.src = '/assets/images/me.JPG';
+                    } else if (this.src.endsWith('me.JPG')) {
+                        console.log('JPG also failed, using placeholder');
+                        this.src = '/assets/images/placeholder.png';
+                    }
                     this.onerror = null; // Prevent infinite loop
-                    // Use absolute path with correct casing
-                    this.src = '/assets/images/me.JPG';
                 };
             }
     
             // Video error handling and fallbacks
             const videos = document.querySelectorAll('video');
-videos.forEach(video => {
-    console.log('Found video element:', video);
-    
-    // Force load video on page load
-    video.load();
-    
-    // Add poster as fallback if not already set
-    if (!video.hasAttribute('poster') && video.querySelector('source')) {
-        const sourcePath = video.querySelector('source').getAttribute('src');
-        if (sourcePath) {
-            const posterPath = sourcePath.replace('.mp4', '-poster.webp');
-            video.setAttribute('poster', posterPath);
-            console.log('Added poster fallback:', posterPath);
-        }
-    }
-    
-    // Event listener for when the video can play
-    video.addEventListener('canplaythrough', function() {
-        console.log('Video can play through:', this);
-        // Try playing the video
-        this.play().catch(e => console.log('Autoplay prevented:', e));
-    });
-    
-    // Error handling for video element
-    video.addEventListener('error', function(e) {
-        console.error('Video error:', this.error);
-        // Ensure poster is visible when video fails
-        this.controls = false;
-    });
-    
-    // Error handling for source elements
-    const sources = video.querySelectorAll('source');
-    sources.forEach(source => {
-        source.addEventListener('error', function(e) {
-            console.error('Source error:', this.src);
-            
-            // Try fallback from compressed to regular version
-            if (this.src.includes('-compressed')) {
-                const newSrc = this.src.replace('-compressed', '');
-                console.log('Trying fallback video source:', newSrc);
-                this.src = newSrc;
-                video.load(); // Reload video with new source
-            }
-        });
-    });
-    
-    // Log when video starts playing
-    video.addEventListener('playing', function() {
-        console.log('Video is now playing');
-    });
-});
+            videos.forEach(video => {
+                // Force load video on page load
+                video.load();
+                
+                const sources = video.querySelectorAll('source');
+                sources.forEach((source, index) => {
+                    source.addEventListener('error', function(e) {
+                        if (index === 0) {
+                            // Silently try the next source
+                            if (sources[1]) {
+                                return; // Let the video element try the next source automatically
+                            }
+                        }
+                        
+                        // Only log if all sources fail
+                        if (index === sources.length - 1) {
+                            console.log('All video sources failed, showing poster');
+                            video.controls = false;
+                            if (!video.hasAttribute('poster')) {
+                                video.poster = 'assets/images/havlin-poster.webp';
+                            }
+                        }
+                    });
+                });
+
+                // Add success handler
+                video.addEventListener('canplaythrough', function() {
+                    // Video loaded successfully, no need to log unless debugging
+                    this.play().catch(e => {
+                        // Only log autoplay failures if they're not user interaction related
+                        if (!e.message.includes('user')) {
+                            console.error('Autoplay error:', e);
+                        }
+                    });
+                });
+            });
     
             // Theme toggling
             const themeToggle = document.querySelector('.theme-toggle');
