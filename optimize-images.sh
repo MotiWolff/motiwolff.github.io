@@ -1,15 +1,20 @@
 #!/bin/bash
 
-# Create WebP versions of all images
-for img in public/images/*; do
-  if [[ $img =~ .*\.(jpg|jpeg|png)$ ]]; then
-    cwebp -q 80 "$img" -o "${img%.*}.webp"
-  fi
-done
-
-# Optimize existing images
-for img in public/images/*.{jpg,jpeg,png}; do
-  if [ -f "$img" ]; then
-    imagemin "$img" --out-dir=public/images/optimized/
-  fi
+# Create optimized versions of images
+for img in assets/images/*.{jpg,jpeg,JPG,JPEG}; do
+    if [ -f "$img" ]; then
+        # Create WebP versions
+        cwebp -q 80 "$img" -o "${img%.*}.webp"
+        
+        # Create responsive sizes
+        convert "$img" -resize 400x400 "${img%.*}-400w.${img##*.}"
+        convert "$img" -resize 800x800 "${img%.*}-800w.${img##*.}"
+        
+        # Create WebP versions of responsive sizes
+        cwebp -q 80 "${img%.*}-400w.${img##*.}" -o "${img%.*}-400w.webp"
+        cwebp -q 80 "${img%.*}-800w.${img##*.}" -o "${img%.*}-800w.webp"
+        
+        # Optimize original
+        jpegoptim --max=80 "$img"
+    fi
 done

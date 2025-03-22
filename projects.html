@@ -59,10 +59,27 @@
                     <div class="project-item">
                         <h3>Havlin Family Website</h3>
                         <div class="video-container">
-                            <video autoplay loop muted playsinline poster="assets/images/havlin-poster.webp">
-                                <source src="assets/havlin-demo.mp4" type="video/mp4">
-                                <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
+                            <video 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline 
+                                poster="assets/images/havlin-poster.webp"
+                                preload="none"
+                            >
+                                <source 
+                                    src="assets/havlin-demo-compressed.mp4" 
+                                    type="video/mp4"
+                                    media="(min-width: 480px)"
+                                >
+                                <!-- Fallback for mobile -->
+                                <img 
+                                    src="assets/images/havlin-poster.webp" 
+                                    alt="Havlin Family Website Preview"
+                                    loading="lazy"
+                                    width="800"
+                                    height="450"
+                                >
                             </video>
                         </div>
                         <p class="project-description">

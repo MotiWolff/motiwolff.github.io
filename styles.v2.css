@@ -1567,3 +1567,54 @@ a:focus, button:focus {
     outline-offset: 2px;
 }
 
+/* Improve mobile styles */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        margin: 20px auto;
+    }
+    
+    .title {
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin: 10px 0;
+    }
+    
+    .project-item {
+        padding: 15px;
+    }
+    
+    .video-container {
+        margin: 15px -15px;
+        border-radius: 0;
+    }
+    
+    .video-container video {
+        max-height: 200px;
+        object-fit: cover;
+    }
+    
+    /* Optimize font sizes for mobile */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.2rem; }
+    p { font-size: 1rem; }
+    
+    /* Improve touch targets */
+    .nav-links a,
+    .project-links a,
+    .theme-toggle {
+        padding: 12px;
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+

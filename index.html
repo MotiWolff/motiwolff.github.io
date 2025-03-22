@@ -56,18 +56,24 @@
         })();
     </script>
     <style>
+        /* Add critical CSS here */
         :root {
-            --text-primary: #E2E8F0;
-            --text-secondary: rgba(226, 232, 240, 0.75);
-            --accent-primary: #64B5F6;
+            --bg-primary: #ffffff;
+            --text-primary: #1a1a1a;
+        }
+        [data-theme="dark"] {
             --bg-primary: #0F172A;
-            --bg-secondary: #1E293B;
-            --border-color: rgba(226, 232, 240, 0.1);
+            --text-primary: #ffffff;
+        }
+        body {
+            margin: 0;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
     </style>
-    <link rel="stylesheet" href="styles.v2.css?v=202401211345">
     <!-- Defer non-critical CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'">
 </head>
 <body>
     <div class="container">
@@ -115,13 +121,27 @@
                         </div>
                     </div>
                     <div class="hero-image">
-                        <img 
-                            src="assets/images/me.JPG"
-                            alt="Moti Wolff"
-                            class="profile-image"
-                            loading="lazy"
-                            decoding="async"
-                        >
+                        <picture class="profile-image-container">
+                            <source
+                                srcset="assets/images/me-400w.webp 400w, assets/images/me-800w.webp 800w"
+                                sizes="(max-width: 480px) 200px, 400px"
+                                type="image/webp"
+                            >
+                            <source
+                                srcset="assets/images/me-400w.jpg 400w, assets/images/me-800w.jpg 800w"
+                                sizes="(max-width: 480px) 200px, 400px"
+                                type="image/jpeg"
+                            >
+                            <img
+                                src="assets/images/me-400w.jpg"
+                                alt="Moti Wolff"
+                                class="profile-image"
+                                loading="lazy"
+                                decoding="async"
+                                width="400"
+                                height="400"
+                            >
+                        </picture>
                     </div>
                 </div>
             </section>
