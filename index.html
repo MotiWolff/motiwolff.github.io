@@ -122,6 +122,7 @@
                             width="400" 
                             height="400" 
                             decoding="async"
+                            onerror="this.onerror=null; this.src='assets/images/me.JPG';"
                         >
                     </div>
                 </div>
@@ -339,7 +340,7 @@
                         <h3>This Website</h3>
                         <div class="project-image">
                             <img 
-                                src="assets/images/this-website.png"
+                                src="assets/images/this-website.webp"
                                 alt="Portfolio Website Screenshot"
                                 width="800"
                                 height="450"
@@ -367,7 +368,7 @@
                         <h3>Pregnancy Tracker</h3>
                         <div class="project-image">
                             <img 
-                                src="assets/images/pregnancy.jpeg"
+                                src="assets/images/pregnancy.webp"
                                 alt="Pregnancy Tracker App Screenshot"
                                 width="800"
                                 height="450"
@@ -587,12 +588,35 @@
         window.addEventListener('error', function(e) {
             if (e.target.tagName === 'IMG') {
                 console.error('Image loading error:', e.target.src);
-                // Optionally retry loading with a different protocol
-                if (e.target.src.startsWith('https://')) {
-                    e.target.src = e.target.src.replace('https://', 'http://');
+                // Keep the same protocol when changing sources
+                if (e.target.src.includes('://')) {
+                    const newSrc = e.target.src.replace(/^https?:/, window.location.protocol);
+                    e.target.src = newSrc;
+                } else {
+                    // For relative paths, just use the fallback
+                    e.target.src = e.target.src.replace('.webp', '.JPG');
                 }
             }
         }, true);
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.addEventListener('error', function(e) {
+                    console.error('Video element error:', this.error);
+                    const source = this.querySelector('source');
+                    if (source) {
+                        console.error('Video source error:', source.src);
+                    }
+                });
+                
+                const sources = video.querySelectorAll('source');
+                sources.forEach(source => {
+                    source.addEventListener('error', function(e) {
+                        console.error('Source error:', this.src);
+                    });
+                });
+            });
+        });
     </script>
     <script>
         document.querySelector('.profile-image').onerror = function() {
