@@ -295,45 +295,50 @@
                     <div class="project-item">
                         <h3>Havlin Family Website</h3>
                         <div class="video-container">
-    <video 
-        autoplay 
-        loop 
-        muted 
-        playsinline 
-        poster="assets/images/havlin-poster.webp"
-        style="width: 100%; height: auto;"
-    >
-        <!-- Try regular version first -->
-        <source src="assets/havlin-demo.mp4" type="video/mp4">
-        <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
-        <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
-    </video>
-</div><div class="video-container">
-    <video 
-        autoplay 
-        loop 
-        muted 
-        playsinline 
-        poster="assets/images/havlin-poster.webp"
-        style="width: 100%; height: auto;"
-    >
-        <!-- Try regular version first -->
-        <source src="assets/havlin-demo.mp4" type="video/mp4">
-        <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
-        <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
-    </video>
-</div>
+                            <video 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline 
+                                preload="auto"
+                                poster="assets/images/havlin-poster.webp"
+                                style="width: 100%; height: auto;"
+                            >
+                                <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
+                                <source src="assets/havlin-demo.mp4" type="video/mp4">
+                                <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
+                            </video>
+                            <p id="videoError" style="display: none; color: red;"></p>
+                        </div>
+                    
                         <script>
-                            const video = document.querySelector('video');
-                            video.onerror = function() {
-                                console.log('Video error:', video.error);
-                                document.getElementById('videoError').style.display = 'block';
-                                document.getElementById('videoError').textContent = 'Error loading video: ' + video.error.message;
-                            };
-                            video.onloadeddata = function() {
-                                console.log('Video loaded successfully');
-                            };
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const video = document.currentScript.previousElementSibling.querySelector('video');
+                                // Force load the video
+                                video.load();
+                                
+                                video.onerror = function() {
+                                    console.log('Video error:', this.error);
+                                    const errorElement = this.parentNode.querySelector('#videoError');
+                                    if (errorElement) {
+                                        errorElement.style.display = 'block';
+                                        errorElement.textContent = 'Error loading video: ' + (this.error ? this.error.message : 'unknown error');
+                                    }
+                                };
+                                
+                                video.onloadeddata = function() {
+                                    console.log('Video loaded successfully');
+                                };
+                                
+                                // Event listener for when the video can play
+                                video.addEventListener('canplaythrough', function() {
+                                    console.log('Video can play through');
+                                    // Try playing the video
+                                    this.play().catch(e => console.log('Autoplay prevented:', e));
+                                });
+                            });
                         </script>
+                    
                         <p class="project-description">
                             Developed a heritage-focused web application showcasing the Havlin family's Jewish legacy and Chabad activities using HTML, JavaScript and Netlify implementation for a modern, responsive design. The site features a dark theme with gold accents, implementing both Hebrew and English language support.
                         </p>
@@ -560,42 +565,57 @@
     
             // Video error handling and fallbacks
             const videos = document.querySelectorAll('video');
-            videos.forEach(video => {
-                console.log('Found video element:', video);
-                
-                // Add poster as fallback if not already set
-                if (!video.hasAttribute('poster') && video.querySelector('source')) {
-                    const sourcePath = video.querySelector('source').getAttribute('src');
-                    if (sourcePath) {
-                        const posterPath = sourcePath.replace('.mp4', '-poster.webp');
-                        video.setAttribute('poster', posterPath);
-                        console.log('Added poster fallback:', posterPath);
-                    }
-                }
-                
-                // Error handling for video element
-                video.addEventListener('error', function(e) {
-                    console.error('Video error:', this.error);
-                    // Ensure poster is visible when video fails
-                    this.controls = false;
-                });
-                
-                // Error handling for source elements
-                const sources = video.querySelectorAll('source');
-                sources.forEach(source => {
-                    source.addEventListener('error', function(e) {
-                        console.error('Source error:', this.src);
-                        
-                        // Try fallback from compressed to regular version
-                        if (this.src.includes('-compressed')) {
-                            const newSrc = this.src.replace('-compressed', '');
-                            console.log('Trying fallback video source:', newSrc);
-                            this.src = newSrc;
-                            video.load(); // Reload video with new source
-                        }
-                    });
-                });
-            });
+videos.forEach(video => {
+    console.log('Found video element:', video);
+    
+    // Force load video on page load
+    video.load();
+    
+    // Add poster as fallback if not already set
+    if (!video.hasAttribute('poster') && video.querySelector('source')) {
+        const sourcePath = video.querySelector('source').getAttribute('src');
+        if (sourcePath) {
+            const posterPath = sourcePath.replace('.mp4', '-poster.webp');
+            video.setAttribute('poster', posterPath);
+            console.log('Added poster fallback:', posterPath);
+        }
+    }
+    
+    // Event listener for when the video can play
+    video.addEventListener('canplaythrough', function() {
+        console.log('Video can play through:', this);
+        // Try playing the video
+        this.play().catch(e => console.log('Autoplay prevented:', e));
+    });
+    
+    // Error handling for video element
+    video.addEventListener('error', function(e) {
+        console.error('Video error:', this.error);
+        // Ensure poster is visible when video fails
+        this.controls = false;
+    });
+    
+    // Error handling for source elements
+    const sources = video.querySelectorAll('source');
+    sources.forEach(source => {
+        source.addEventListener('error', function(e) {
+            console.error('Source error:', this.src);
+            
+            // Try fallback from compressed to regular version
+            if (this.src.includes('-compressed')) {
+                const newSrc = this.src.replace('-compressed', '');
+                console.log('Trying fallback video source:', newSrc);
+                this.src = newSrc;
+                video.load(); // Reload video with new source
+            }
+        });
+    });
+    
+    // Log when video starts playing
+    video.addEventListener('playing', function() {
+        console.log('Video is now playing');
+    });
+});
     
             // Theme toggling
             const themeToggle = document.querySelector('.theme-toggle');
