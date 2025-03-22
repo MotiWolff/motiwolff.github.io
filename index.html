@@ -295,20 +295,34 @@
                     <div class="project-item">
                         <h3>Havlin Family Website</h3>
                         <div class="video-container">
-                            <video 
-                                autoplay 
-                                loop 
-                                muted 
-                                playsinline 
-                                poster="assets/images/havlin-poster.webp"
-                                style="width: 100%; height: auto;"
-                            >
-                                <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
-                                <source src="assets/havlin-demo.mp4" type="video/mp4">
-                                <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview" width="100%" height="auto">
-                            </video>
-                            <p id="videoError" style="display: none; color: red;"></p>
-                        </div>
+    <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        poster="assets/images/havlin-poster.webp"
+        style="width: 100%; height: auto;"
+    >
+        <!-- Try regular version first -->
+        <source src="assets/havlin-demo.mp4" type="video/mp4">
+        <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
+        <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
+    </video>
+</div><div class="video-container">
+    <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        poster="assets/images/havlin-poster.webp"
+        style="width: 100%; height: auto;"
+    >
+        <!-- Try regular version first -->
+        <source src="assets/havlin-demo.mp4" type="video/mp4">
+        <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
+        <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
+    </video>
+</div>
                         <script>
                             const video = document.querySelector('video');
                             video.onerror = function() {
