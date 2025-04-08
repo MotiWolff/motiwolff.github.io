@@ -315,51 +315,59 @@
                         <h3>Havlin Family Website</h3>
                         <div class="video-container">
                             <video 
-                                autoplay 
-                                loop 
-                                muted 
                                 playsinline 
+                                muted 
+                                loop
                                 preload="none"
                                 poster="assets/images/havlin-poster.webp"
+                                width="800"
+                                height="450"
                             >
-                                <source src="assets/havlin-demo.mp4" type="video/mp4">
-                                <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
-                                <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
+                                <source 
+                                    src="assets/havlin-demo-compressed.mp4" 
+                                    type="video/mp4"
+                                >
+                                <img 
+                                    src="assets/images/havlin-poster.webp" 
+                                    alt="Havlin Family Website Preview"
+                                    width="800"
+                                    height="450"
+                                    loading="lazy"
+                                >
                             </video>
                         </div>
-                    
+                        
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                const video = document.querySelector('video');
-                                if (video) {
-                                    // Force load the video
-                                    video.load();
-                                    
-                                    video.addEventListener('error', function(e) {
-                                        console.log('Video error:', e.target.error);
-                                        // Show the fallback image
-                                        const fallbackImg = this.querySelector('img');
-                                        if (fallbackImg) {
-                                            fallbackImg.style.display = 'block';
-                                            this.style.display = 'none';
-                                        }
-                                    });
-                                    
-                                    video.addEventListener('loadeddata', function() {
-                                        console.log('Video loaded successfully');
-                                    });
-                                    
-                                    video.addEventListener('canplaythrough', function() {
-                                        console.log('Video can play through');
-                                        this.play().catch(e => {
-                                            if (e.name === 'NotAllowedError') {
-                                                console.log('Autoplay prevented by browser');
+                                const videos = document.querySelectorAll('video');
+                                videos.forEach(video => {
+                                    // Only try to play if the video is in viewport
+                                    const observer = new IntersectionObserver((entries) => {
+                                        entries.forEach(entry => {
+                                            if (entry.isIntersecting) {
+                                                video.play().catch(e => {
+                                                    console.log('Autoplay prevented:', e);
+                                                    // Show poster image if video can't play
+                                                    video.setAttribute('poster', video.querySelector('img').src);
+                                                });
                                             } else {
-                                                console.error('Video playback error:', e);
+                                                video.pause();
                                             }
                                         });
+                                    }, { threshold: 0.5 });
+                                    
+                                    observer.observe(video);
+                                    
+                                    // Handle loading errors
+                                    video.addEventListener('error', function(e) {
+                                        console.log('Video error:', e);
+                                        this.style.display = 'none';
+                                        const img = this.querySelector('img');
+                                        if (img) {
+                                            img.style.display = 'block';
+                                        }
                                     });
-                                }
+                                });
                             });
                         </script>
                     

@@ -792,15 +792,62 @@ body {
     border-radius: 8px;
     overflow: hidden;
     background: var(--bg-secondary);
+    position: relative;
+    aspect-ratio: 16/9;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
 }
 
 .video-container video,
 .video-container img {
     width: 100%;
-    height: auto;
-    max-height: 200px;
+    height: 100%;
     object-fit: cover;
     border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .video-container {
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    }
+
+    .profile-image {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .hero-image {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+}
+
+/* Ensure proper sizing on Safari */
+.profile-image-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Fix Safari scrolling */
+html, body {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+/* Fix Safari font rendering */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .certificate-links {
