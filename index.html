@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0">
@@ -321,10 +321,11 @@
                                 playsinline 
                                 muted 
                                 loop
-                                preload="none"
+                                preload="metadata"
                                 poster="assets/images/havlin-poster.webp"
                                 width="800"
                                 height="450"
+                                controls
                             >
                                 <source 
                                     src="assets/havlin-demo-compressed.mp4" 
@@ -344,23 +345,6 @@
                             document.addEventListener('DOMContentLoaded', function() {
                                 const videos = document.querySelectorAll('video');
                                 videos.forEach(video => {
-                                    // Only try to play if the video is in viewport
-                                    const observer = new IntersectionObserver((entries) => {
-                                        entries.forEach(entry => {
-                                            if (entry.isIntersecting) {
-                                                video.play().catch(e => {
-                                                    console.log('Autoplay prevented:', e);
-                                                    // Show poster image if video can't play
-                                                    video.setAttribute('poster', video.querySelector('img').src);
-                                                });
-                                            } else {
-                                                video.pause();
-                                            }
-                                        });
-                                    }, { threshold: 0.5 });
-                                    
-                                    observer.observe(video);
-                                    
                                     // Handle loading errors
                                     video.addEventListener('error', function(e) {
                                         console.log('Video error:', e);
@@ -370,6 +354,22 @@
                                             img.style.display = 'block';
                                         }
                                     });
+
+                                    // Try to play the video
+                                    const playVideo = () => {
+                                        video.play().catch(e => {
+                                            console.log('Autoplay prevented:', e);
+                                            // Show poster image if video can't play
+                                            video.setAttribute('poster', video.querySelector('img').src);
+                                        });
+                                    };
+
+                                    // Try to play on load
+                                    playVideo();
+
+                                    // Try to play on user interaction
+                                    document.addEventListener('click', playVideo, { once: true });
+                                    document.addEventListener('touchstart', playVideo, { once: true });
                                 });
                             });
                         </script>

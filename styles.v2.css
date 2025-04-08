@@ -785,6 +785,7 @@ body {
     transform: translateX(-4px);
 }
 
+/* Video Container Styles */
 .video-container {
     width: 100%;
     max-width: 1000px;
@@ -795,39 +796,66 @@ body {
     position: relative;
     aspect-ratio: 16/9;
     -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
+    transform: translateZ(0);
 }
 
-.video-container video,
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    background: var(--bg-secondary);
+}
+
 .video-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    display: none;
+    background: var(--bg-secondary);
 }
 
-/* Safari-specific fixes */
+/* iOS Safari specific fixes */
 @supports (-webkit-touch-callout: none) {
     .video-container {
         height: 0;
         padding-bottom: 56.25%; /* 16:9 aspect ratio */
     }
 
-    .profile-image {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
+    .video-container video,
+    .video-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
-    .hero-image {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
+    video::-webkit-media-controls {
+        display: none !important;
     }
+}
+
+/* Mobile-specific fixes */
+@media screen and (max-width: 768px) {
+    .video-container {
+        margin: 1rem 0;
+        border-radius: 0;
+    }
+
+    .video-container video,
+    .video-container img {
+        border-radius: 0;
+    }
+}
+
+/* Fix for iOS Safari video controls */
+video::-webkit-media-controls {
+    display: none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+    display: none !important;
 }
 
 /* Ensure proper sizing on Safari */
