@@ -1665,3 +1665,125 @@ a:focus, button:focus {
     }
 }
 
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    /* Fix for iOS Safari 100vh issue */
+    .hero-section {
+        min-height: -webkit-fill-available;
+    }
+
+    /* Fix for iOS Safari video container */
+    .video-container {
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+        overflow: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+
+    .video-container video,
+    .video-container img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Fix for iOS Safari profile image */
+    .profile-image {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    /* Fix for iOS Safari scrolling */
+    body {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Fix for iOS Safari input zoom */
+    input, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Mobile-specific fixes */
+@media screen and (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .hero-image {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
+    }
+
+    .video-container {
+        margin: 1rem 0;
+    }
+
+    .video-container video,
+    .video-container img {
+        max-height: 200px;
+    }
+
+    .project-item {
+        margin: 1rem 0;
+    }
+
+    .tech-stack {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tech-stack span {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* Fix for iOS Safari input zoom */
+@media screen and (max-width: 480px) {
+    input, textarea {
+        font-size: 16px !important;
+    }
+
+    .hero-image {
+        width: 200px;
+        height: 200px;
+    }
+
+    .video-container {
+        margin: 0.5rem 0;
+    }
+
+    .video-container video,
+    .video-container img {
+        max-height: 180px;
+    }
+}
+
+/* Fix for iOS Safari video autoplay */
+.video-container video {
+    -webkit-playsinline: true;
+    playsinline: true;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix for iOS Safari touch events */
+* {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
