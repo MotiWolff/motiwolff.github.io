@@ -55,6 +55,7 @@
             document.documentElement.setAttribute('data-theme', savedTheme);
         })();
     </script>
+    <script src="unregister-sw.js"></script>
     <style>
         /* Add critical CSS here */
         :root {
@@ -125,10 +126,7 @@
                             <source
                                 srcset="assets/images/me.webp"
                                 type="image/webp"
-                            >
-                            <source
-                                srcset="assets/images/me.JPG"
-                                type="image/jpeg"
+                                onerror="this.onerror=null; this.src='assets/images/me.JPG'"
                             >
                             <img
                                 src="assets/images/me.JPG"
@@ -138,6 +136,7 @@
                                 decoding="async"
                                 width="400"
                                 height="400"
+                                onerror="this.onerror=null; this.src='assets/images/placeholder.png'"
                             >
                         </picture>
                     </div>
