@@ -7,6 +7,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Moti Wolff - Portfolio</title>
+    <link rel="stylesheet" href="styles.v2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
@@ -126,7 +127,6 @@
                             <source
                                 srcset="assets/images/me.webp"
                                 type="image/webp"
-                                onerror="this.onerror=null; this.src='assets/images/me.JPG'"
                             >
                             <img
                                 src="assets/images/me.JPG"
@@ -136,7 +136,6 @@
                                 decoding="async"
                                 width="400"
                                 height="400"
-                                onerror="this.onerror=null; this.src='assets/images/placeholder.png'"
                             >
                         </picture>
                     </div>
@@ -321,41 +320,45 @@
                                 loop 
                                 muted 
                                 playsinline 
-                                preload="auto"
+                                preload="none"
                                 poster="assets/images/havlin-poster.webp"
-                                style="width: 100%; height: auto;"
                             >
                                 <source src="assets/havlin-demo.mp4" type="video/mp4">
+                                <source src="assets/havlin-demo-compressed.mp4" type="video/mp4">
                                 <img src="assets/images/havlin-poster.webp" alt="Havlin Family Website Preview">
                             </video>
-                            <p id="videoError" style="display: none; color: red;"></p>
                         </div>
                     
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                const element = document.querySelector('video');
-                                if (element && element.previousElementSibling) {
+                                const video = document.querySelector('video');
+                                if (video) {
                                     // Force load the video
-                                    element.load();
+                                    video.load();
                                     
-                                    element.onerror = function() {
-                                        console.log('Video error:', this.error);
-                                        const errorElement = this.parentNode.querySelector('#videoError');
-                                        if (errorElement) {
-                                            errorElement.style.display = 'block';
-                                            errorElement.textContent = 'Error loading video: ' + (this.error ? this.error.message : 'unknown error');
+                                    video.addEventListener('error', function(e) {
+                                        console.log('Video error:', e.target.error);
+                                        // Show the fallback image
+                                        const fallbackImg = this.querySelector('img');
+                                        if (fallbackImg) {
+                                            fallbackImg.style.display = 'block';
+                                            this.style.display = 'none';
                                         }
-                                    };
+                                    });
                                     
-                                    element.onloadeddata = function() {
+                                    video.addEventListener('loadeddata', function() {
                                         console.log('Video loaded successfully');
-                                    };
+                                    });
                                     
-                                    // Event listener for when the video can play
-                                    element.addEventListener('canplaythrough', function() {
+                                    video.addEventListener('canplaythrough', function() {
                                         console.log('Video can play through');
-                                        // Try playing the video
-                                        this.play().catch(e => console.log('Autoplay prevented:', e));
+                                        this.play().catch(e => {
+                                            if (e.name === 'NotAllowedError') {
+                                                console.log('Autoplay prevented by browser');
+                                            } else {
+                                                console.error('Video playback error:', e);
+                                            }
+                                        });
                                     });
                                 }
                             });
@@ -388,7 +391,6 @@
                                 height="450"
                                 loading="lazy"
                                 decoding="async"
-                                onerror="this.onerror=null; console.error('Failed to load image:', this.src);"
                             >
                         </div>
                         <p class="project-description">
