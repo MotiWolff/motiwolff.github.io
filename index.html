@@ -507,9 +507,22 @@
                 });
             }
     
-            window.addEventListener('scroll', () => {
-                requestAnimationFrame(updateActiveLink);
-            });
+            // Add debounce function
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+    
+            // Debounce the scroll event
+            const debouncedUpdate = debounce(updateActiveLink, 100);
+            window.addEventListener('scroll', debouncedUpdate);
             updateActiveLink();
     
             // Smooth scrolling

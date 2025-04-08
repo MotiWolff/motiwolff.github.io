@@ -3,7 +3,9 @@ if ('serviceWorker' in navigator) {
     // Unregister all service workers
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
         for(let registration of registrations) {
-            registration.unregister();
+            registration.unregister().then(function() {
+                console.log('Service worker unregistered');
+            });
         }
     });
 
@@ -15,7 +17,9 @@ if ('serviceWorker' in navigator) {
     // Clear all caches
     caches.keys().then(function(names) {
         for (let name of names) {
-            caches.delete(name);
+            caches.delete(name).then(function() {
+                console.log('Cache deleted:', name);
+            });
         }
     });
 
